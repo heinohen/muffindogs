@@ -17,7 +17,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000")
+    fetch("/")
       .then((res) => res.json())
       .then((data) => {
         setHeaderMessage(data.message);
@@ -44,7 +44,7 @@ function App() {
 
     try {
       console.log("calling backend")
-      const response = await axios.post("http://localhost:5000/upload", formData,
+      const response = await axios.post("/upload", formData,
         {
           headers: {
             'Content-Type' : 'multipart/form-data',
