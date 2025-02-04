@@ -14,10 +14,14 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Forces TensorFlow to use CPU
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://muffindogs.fly.dev"])
 
 
 UPLOAD_FOLDER = 'uploads'
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -36,7 +40,7 @@ def allowed_file(filename:str) -> bool:
 @app.route("/")
 
 def home():
-    return jsonify({"message":"dogs or muffins or dogs or muffins"})
+    return jsonify({"message": "Welcome to the Flask backend on Fly.io!"})
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -76,4 +80,4 @@ def upload():
     return jsonify({'message': 'Invalid file type'}), 400
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=8080)

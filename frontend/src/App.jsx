@@ -18,7 +18,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_API_URL)
+    fetch("https://muffindog-back.fly.dev")
       .then((res) => res.json())
       .then((data) => {
         setHeaderMessage(data.message);
@@ -45,7 +45,7 @@ function App() {
 
     try {
       console.log("calling backend")
-      const response = await axios.post(import.meta.env.VITE_API_URL + "/upload", formData,
+      const response = await axios.post("https://muffindog-back.fly.dev/upload", formData,
         {
           headers: {
             'Content-Type' : 'multipart/form-data',

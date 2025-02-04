@@ -1,0 +1,25 @@
+# fly.toml app configuration file generated for back-bitter-resonance-5134 on 2025-02-04T21:48:31+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'back-bitter-resonance-5134'
+primary_region = 'arn'
+
+[build]
+
+[env]
+FLASK_APP = "server"  # if your app is in 'server.py'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

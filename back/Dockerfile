@@ -1,8 +1,15 @@
-FROM python:3.9
+FROM python:3.12.6 AS builder
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
 WORKDIR /app
 
-COPY api/requirements.txt api/api.py 
-RUN pip install -r ./requirements.txt
 
-EXPOSE 5000
-CMD ["gunicorn", "-b", ":5000", "api:app"]
+RUN python -m venv .venv
+COPY requirements.txt ./
+RUN .venv/bin/pip install -r requirements.txt
+FROM python:3.12.6-slim
+WORKDIR /app
+COPY --from=builder /app/.venv .venv/
+COPY . .
+CMD ["/app/.venv/bin/flask", "run", "--host=0.0.0.0", "--port=8080"]
