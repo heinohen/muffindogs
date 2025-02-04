@@ -13,7 +13,7 @@ from tensorflow.keras.models import load_model
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Forces TensorFlow to use CPU
 
 
-app = Flask(__name__, static_folder='./dist', static_url_path='/')
+app = Flask(__name__)
 CORS(app)
 
 
@@ -76,4 +76,4 @@ def upload():
     return jsonify({'message': 'Invalid file type'}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
