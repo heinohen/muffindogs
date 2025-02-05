@@ -1,0 +1,78 @@
+html,
+body{
+  margin: 0;
+  padding: 0;
+}
+#root{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  display: -ms-flexbox;
+  background-color: darkgray;
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.container {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+
+.container-content {
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.header,
+.footer{
+  background-color: darkgreen;
+  flex-basis: 50px;
+  display: flex;
+  align-items: center; 
+  justify-content: space-around; 
+  display: -ms-flexbox;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 10px;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center; 
+}
+
+.header a{
+  display: inline-block;
+}
+.fixed-hf .main{
+  overflow-y: auto;
+}
+
+.button-container {
+  padding: 30px;
+}
+
+.upload-btn {
+  padding: 20px 40px;       /* Increase padding for a larger button */
+  font-size: 1.5rem;        /* Larger text inside the button */
+  background-color: #1da1f2;  /* Button background color (blue) */
+  color: white;             /* Button text color */
+  border: none;             /* Remove default button border */
+  cursor: pointer;         /* Pointer cursor on hover */
+  border-radius: 8px;       /* Rounded corners */
+  display: inline-block;    /* Button display */
+  text-align: center;       /* Center align text */
+  width: auto;              /* Auto width based on content */
+  min-width: 200px;         /* Minimum width */
+}
+
+.upload-btn:hover {
+  background-color: #0d8fce; /* Darker blue on hover */
+}

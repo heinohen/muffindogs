@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import './App.css'
-import Header from '../components/header';
-import Footer from '../components/footer';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Connection from './components/Connection';
 
 function App() {
-
-  const [headerMessage, setHeaderMessage] = useState(""); // header message
+  const [backEndMessage, setBackEndMessage] = useState(""); // header message
   const [imageFile, setImageFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("waiting for image...");
-
 
 
   useEffect(() => {
@@ -21,7 +20,7 @@ function App() {
     fetch("https://muffindog-back.fly.dev")
       .then((res) => res.json())
       .then((data) => {
-        setHeaderMessage(data.message);
+        setBackEndMessage(data.message);
       });
   }, []);
 
@@ -38,51 +37,50 @@ function App() {
 
     if (!imageFile) {
       alert("select an image first!");
-    };
+      return;
+    }
 
     const formData = new FormData();
     formData.append("file", imageFile);
 
     try {
-      console.log("calling backend")
-      const response = await axios.post("https://muffindog-back.fly.dev/upload", formData,
-        {
-          headers: {
-            'Content-Type' : 'multipart/form-data',
-          },
-        }
-      );
+      console.log("calling backend");
+      const response = await axios.post("https://muffindog-back.fly.dev/upload", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       if (response.data.message) {
-        const message = response.data.message;
-        setResponseMessage(message);
-      };
-    } catch (error){
+        setResponseMessage(response.data.message);
+      }
+    } catch (error) {
       console.log("error", error.message);
-      setResponseMessage("something went sour")
+      setResponseMessage("something went sour");
     }
   };
 
-
   return (
     <>
-      <div>
-      <Header message = {headerMessage} />
-      <p>file input header</p>
-      <p>button</p>
-      <input type="file" onChange={handleFileChange}/>
-      <div>
-      <button onClick={handleSubmit}>Upload image</button>
+      <Header />
+      
+      <div className="container">
+        <div className="container-content">
+          <Connection className = "connectionmsg" message={backEndMessage} />
+          <input type="file" onChange={handleFileChange} />
+          <div className="button-container">
+            <button className="upload-btn" onClick={handleSubmit}>Upload image</button>
+          </div>
+          <div className="response-message">
+            <p>{responseMessage}</p>
+          </div>
+        </div>
       </div>
-      <div>
-        <p>{responseMessage}</p>
-      </div>
-    </div>
+      
       <Footer />
-
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
+

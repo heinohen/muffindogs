@@ -72,9 +72,9 @@ def upload():
 
         # this is for the dog
         if pred[0, 1] > 0.5:
-            return jsonify({"message" : f"ITS A DOG! With {pred[0, 1]:.2f}% probability"}) # 1 is dog
+            return jsonify({"message" : f"ITS A DOG! With {((pred[0, 1]) * 100):.2f}% probability"}) # 1 is dog
         else:
-            return jsonify({"message": f"ITS A MUFFIN! With {pred[0, 0]:.2f}% probability"}) # 0 is muffin
+            return jsonify({"message": f"ITS A MUFFIN! With {((pred[0, 0]) * 100):.2f}% probability"}) # 0 is muffin
 
 
     return jsonify({'message': 'Invalid file type'}), 400
